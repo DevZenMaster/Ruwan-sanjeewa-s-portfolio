@@ -12,8 +12,9 @@ const Footer = () => {
             <span className="text-neutral text-lg font-medium">DevZenMaster</span>
           </h5>
           <p className="text-tertiary-content">
-            The first free end-to-end analytics service for the site, designed to work with
-            enterprises of various levels and business segments.
+            DevZenMaster focuses on secure web and mobile development, ethical hacking, and
+            future-ready cloud & DevSecOps skills, backed by practical project experience and
+            continuous learning.
           </p>
           <a
             href="#"
@@ -72,7 +73,7 @@ const Footer = () => {
               <div>
                 <h5 className="text-neutral mb-4 text-lg font-medium">Location</h5>
                 <address className="text-tertiary-content flex flex-col text-sm font-light">
-                  <span>533, Right Bank</span>
+                 
                   <span>Anuradhapura,Sri Lanka.</span>
                 </address>
               </div>

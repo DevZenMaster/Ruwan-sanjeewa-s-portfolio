@@ -7,8 +7,10 @@ import Ellipse from './Ellipse'
 
 const Hero = () => {
   const ellipseRef = useRotatingAnimation()
-  const role1 = useRoleSwitcher({ roles: ['Ruwan Sanjeewa','DevZenMaster',] })
-  const role2 = useRoleSwitcher({ roles: ['FULLSTACK DEVELOPER', 'DevSecOps Trainee', 'SLTC Undergraduate Student'] })
+  const role1 = useRoleSwitcher({ roles: ['Ruwan Sanjeewa', 'DevZenMaster'] })
+  const role2 = useRoleSwitcher({
+    roles: ['FULLSTACK DEVELOPER', 'DevSecOps Trainee', 'SLTC Undergraduate Student'],
+  })
 
   return (
     <section className="bg-primary bg-small-glow bg-small-glow-position md:bg-large-glow-position lg:bg-large-glow min-h-[calc(dvh-4rem)] bg-no-repeat">
@@ -20,17 +22,17 @@ const Hero = () => {
           </h1>
 
           <h2 className="text-neutral mt-3">
-            Crafting innovative solutions to solve real-world problems
+            I build secure web and mobile systems using MERN stack, Flutter, and modern tools. I
+            focus on clean code, practical security, and scalable applications, while working toward
+            cloud and DevSecOps expertise.
           </h2>
 
           <div className="mt-6 flex flex-wrap gap-6">
-
-            <button  
-
+            <button
               aria-label="Connect with me"
               className="bg-accent min-w-32 cursor-pointer rounded-lg px-[14px] py-[10px] text-center text-sm font-medium text-[#00071E]">
               Downloade CV
-            </button >
+            </button>
             <a
               href="https://www.linkedin.com/in/ruwansanjeewa"
               aria-label="View LinkedIn Profile"

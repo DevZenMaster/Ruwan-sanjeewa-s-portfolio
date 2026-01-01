@@ -10,9 +10,8 @@ const navItems = [
   { label: 'Home', href: '/' },
   { label: 'Projects', href: '/#projects' },
   { label: 'Services', href: '/#services' },
-  { label: 'Work', href: '/#work' },
-  { label: 'Contact', href: '/#contact' },
-  { label: 'Resume', href: '/#resume', isButton: true },
+  { label: 'Blog', href: 'https://devzenmaster.medium.com/', external: true },
+  { label: 'Contact', href: '/#contact', isButton: true },
 ]
 
 const Navbar = () => {
@@ -51,7 +50,7 @@ const Navbar = () => {
             isVisible ? 'flex' : 'hidden'
           } animate-fade-in absolute top-16 left-0 z-10 h-dvh w-dvw flex-col bg-primary md:static md:flex md:h-full md:w-[72%] md:flex-row lg:w-[70%] md:items-center md:justify-end`}
         >
-          {navItems.map(({ label, href, isButton }) => (
+          {navItems.map(({ label, href, isButton, external }) => (
             <li
               key={href}
               onClick={() => setIsVisible(false)}
@@ -64,6 +63,15 @@ const Navbar = () => {
                 >
                   {label}
                 </Link>
+              ) : external ? (
+                <a
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary-content transition-all duration-150 hover:text-neutral"
+                >
+                  {label}
+                </a>
               ) : (
                 <Link
                   href={href}
@@ -83,4 +91,3 @@ const Navbar = () => {
 }
 
 export default Navbar
-
