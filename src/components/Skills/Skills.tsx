@@ -1,4 +1,5 @@
 'use client'
+
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
 
@@ -15,8 +16,15 @@ const Skills: React.FC<SkillsProps> = ({ skills }) => {
         {skills.map(({ name, icon }, index) => (
           <span
             key={index}
-            className="font-inter text-primary-content flex items-center text-xs lg:text-base">
-            <Image src={icon} alt={name} className="mx-2 size-11 lg:size-14" />
+            className="font-inter text-primary-content flex items-center text-xs lg:text-base"
+          >
+            {icon ? (
+              <Image
+                src={icon}
+                alt={name}
+                className="mx-2 size-11 lg:size-14"
+              />
+            ) : null}
             {name}
           </span>
         ))}
