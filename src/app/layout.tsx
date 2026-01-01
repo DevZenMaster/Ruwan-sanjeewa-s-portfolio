@@ -11,13 +11,12 @@ const firaCode = Fira_Code({
   weight: ['300', '400', '500', '600', '700'],
 })
 
-const title = 'Ruwan Sanjeewa | Full-Stack Web Developer in Sri Lanka'
+const title = 'Ruwan Sanjeewa | Full-Stack & Mobile Developer | Cybersecurity Enthusiast'
 
 const description =
-  "Skilled full-stack web developer in Sri Lanka. I build responsive, user-friendly websites with React, NextJS, and NodeJS. Let's bring your vision to life. Hire me today!"
+  "I build responsive web & mobile applications with React, NextJS, NodeJS, and Flutter. Cybersecurity-focused developer with a future goal in DevSecOps. Let's craft secure, scalable, and innovative solutions together."
 
-const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL!
 
 export const metadata: Metadata = {
   title,
@@ -33,20 +32,25 @@ export const metadata: Metadata = {
     url: siteUrl,
     siteName: 'Ruwan Sanjeewa Portfolio',
     type: 'website',
+    images: [
+      {
+        url: `${siteUrl}/api/og`,
+        width: 1200,
+        height: 630,
+        alt: 'Ruwan Sanjeewa | Full-Stack & Mobile Developer',
+      },
+    ],
   },
   twitter: {
     title,
     description,
     card: 'summary_large_image',
     creator: '@DevZenMaster',
+    images: [`${siteUrl}/api/og`],
   },
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" data-theme="dark">
       <body className={firaCode.className}>

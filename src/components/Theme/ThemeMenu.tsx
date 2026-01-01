@@ -41,7 +41,7 @@ const ThemeMenu = () => {
       {showThemeMenu && (
         <div className="bg-secondary animate-fade-in border-border absolute right-0 bottom-full mb-5 space-y-3 rounded-xl border p-3 md:space-y-4 md:p-5">
           <div className="text-primary-content border-border flex items-center justify-between border-b pb-3 md:pb-4">
-            <span className="text-sm md:text-base">_select-theme</span>
+            <span className="text-sm md:text-base">Select Theme</span>
             <CloseIcon
               onClick={() => setShowThemeMenu(false)}
               className="h-3 w-3 cursor-pointer md:h-4 md:w-4"
