@@ -59,7 +59,7 @@ const Navbar = () => {
               {isButton ? (
                 <Link
                   href={href}
-                  className="rounded-lg px-4 py-2 text-sm font-medium bg-accent text-[#00071E] transition-all duration-150 hover:brightness-110 md:px-5 md:py-2"
+                  className="rounded-full border border-accent px-5 py-2 text-sm font-medium text-accent bg-transparent hover:bg-accent hover:text-[#00071E] transition-colors duration-200"
                 >
                   {label}
                 </Link>
