@@ -9,9 +9,9 @@ const ContactSection = () => {
       <div className="flex flex-col justify-between gap-8">
         <div>
           <h3 className="text-neutral text-3xl font-bold">Let's Talk</h3>
-          <h4 className="text-accent text-2xl font-bold md:text-3xl">We'd love to help</h4>
+          <h4 className="text-accent text-2xl font-bold md:text-3xl">Reach out anytime</h4>
           <p className="text-neutral mt-8">
-            Crafting innovative solutions to solve real-world problems
+            I build practical solutions that create impact <br></br>Secure, efficient, and built to support growth
           </p>
         </div>
 
