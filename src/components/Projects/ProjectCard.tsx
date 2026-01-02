@@ -1,93 +1,59 @@
-import { Project } from '@/lib/types'
 import Image from 'next/image'
-import { Earning, GithubIcon, Likes, PreviewIcon, Star, Timer } from '../../utils/icons'
-
-const IconText: React.FC<{ icon: string; text: string }> = ({ icon, text }) => (
-  <li className="flex gap-2">
-    <Image src={icon} alt={text} className="size-[18px] md:size-5" />
-    <span className="text-neutral text-sm">{text}</span>
-  </li>
-)
 
 interface ProjectCardProps {
-  data: Project
+  title: string
+  shortDescription: string
+  stack?: string[]
+  livePreview?: string
+  cover: any // Imported image
 }
 
-const ProjectCard: React.FC<ProjectCardProps> = ({ data }) => {
-  const {
-    title,
-    shortDescription,
-    visitors,
-    earned,
-    ratings,
-    githubStars,
-    numberOfSales,
-    livePreview,
-    githubLink,
-    siteAge,
-    type,
-    cover,
-  } = data
-
+const ProjectCard: React.FC<ProjectCardProps> = ({ title, shortDescription, stack, livePreview, cover }) => {
   return (
-    <div className="bg-secondary border-border flex flex-col justify-between rounded-[14px] border p-5">
-      <div className="flex items-start justify-between gap-2">
-        <div className="flex-1">
-          <div className="flex flex-col flex-wrap gap-3 sm:flex-row sm:items-center">
-            <h3 className="text-secondary-content text-lg font-medium md:font-semibold">{title}</h3>
-            {type && (
-              <span
-                className={`h-7 w-fit rounded-md bg-[#FFFFFF1A] p-1 text-sm ${type === 'New 🔥' ? 'animate-blink text-tag' : 'text-accent'} backdrop-blur-[80px]`}>
-                {type}
-              </span>
-            )}
-          </div>
-          <ul className="mt-3 flex flex-col flex-wrap gap-2 sm:flex-row sm:gap-4">
-            {(visitors || numberOfSales) && (
-              <IconText text={(visitors || numberOfSales)?.toString() || ''} icon={Likes} />
-            )}
-            {siteAge && <IconText text={siteAge} icon={Timer} />}
-            {earned && <IconText text={earned} icon={Earning} />}
-            {(ratings || githubStars) && (
-              <IconText text={(ratings || githubStars)?.toString() || ''} icon={Star} />
-            )}
-          </ul>
-        </div>
-        <figure className="flex justify-end overflow-hidden">
-          <Image
-            src={cover}
-            width={150}
-            height={80}
-            alt="Project Cover"
-            className="h-[80px] w-[150px] rounded-md object-cover shadow-[0px_1.66px_3.74px_-1.25px_#18274B1F]"
-          />
-        </figure>
+    <div className="bg-secondary border-border flex flex-col rounded-2xl border overflow-hidden hover:shadow-lg transition-shadow duration-300">
+      {/* Website Image */}
+      <div className="relative w-full h-48 md:h-56">
+        <Image
+          src={cover}
+          alt={title}
+          fill
+          className="object-cover"
+        />
       </div>
 
-      <div>
-        <div className="bg-primary text-primary-content my-4 h-[100px] overflow-scroll rounded-2xl px-4 py-2">
-          <p className="text-[14px] font-normal md:text-base">{shortDescription}</p>
-        </div>
-        <div className="flex gap-5">
-          {livePreview && (
-            <a
-              href={livePreview}
-              className="text-accent flex gap-2 text-sm underline underline-offset-[3px] transition-all duration-75 ease-linear hover:scale-105 md:text-base"
-              target="_blank">
-              <PreviewIcon className="h-auto w-[18px] md:w-5" />
-              <span>Live Preview</span>
-            </a>
-          )}
-          {githubLink && (
-            <a
-              href={githubLink}
-              className="text-accent flex gap-2 text-sm underline underline-offset-[3px] transition-all duration-75 ease-linear hover:scale-105 md:text-base"
-              target="_blank">
-              <GithubIcon className="w-[18px] md:w-5" />
-              <span>Github Link</span>
-            </a>
-          )}
-        </div>
+      {/* Content */}
+      <div className="p-5 flex flex-col gap-3">
+        <h5 className="text-accent text-center text-lg font-semibold">{title}</h5>
+
+        <p className="text-primary-content text-center text-sm md:text-base">
+          {shortDescription}
+        </p>
+
+        {/* Stack Tags */}
+        {stack && stack.length > 0 && (
+          <div className="flex flex-wrap justify-center gap-2 mt-2">
+            {stack.map((tech, idx) => (
+              <span
+                key={idx}
+                className="bg-gray-200 text-gray-800 text-xs px-2 py-1 rounded-full"
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
+        )}
+
+        {/* Live Preview */}
+        {livePreview && (
+          <a
+            href={livePreview}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-3 text-blue-600 font-medium text-sm text-center hover:underline"
+          >
+            Live Preview
+          </a>
+        )}
       </div>
     </div>
   )
