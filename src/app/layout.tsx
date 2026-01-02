@@ -16,12 +16,15 @@ const title = 'Ruwan Sanjeewa | Full-Stack & Mobile Developer | Cybersecurity En
 const description =
   "I build responsive web & mobile applications with React, NextJS, NodeJS, and Flutter. Cybersecurity-focused developer with a future goal in DevSecOps. Let's craft secure, scalable, and innovative solutions together."
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL!
+// ✅ Safe fallback for environment variable
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL || 'https://www.ruwansanjeewa.com'
 
 export const metadata: Metadata = {
   title,
   description,
   category: 'technology',
+  // ✅ metadataBase must not be undefined
   metadataBase: new URL(siteUrl),
   alternates: {
     canonical: siteUrl,

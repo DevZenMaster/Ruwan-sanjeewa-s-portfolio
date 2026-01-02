@@ -1,10 +1,12 @@
 import type { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  // ✅ Safe fallback for base URL
   const baseUrl =
     process.env.NEXT_PUBLIC_SITE_URL || 'https://www.ruwansanjeewa.com'
 
-  const blogUrl = 'https://devzenmaster.medium.com'
+  // Blog URL
+  const blogUrl = 'https://devzenmaster.medium.com/'
 
   return [
     {
