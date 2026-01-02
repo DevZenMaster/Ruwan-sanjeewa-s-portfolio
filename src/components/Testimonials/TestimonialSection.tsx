@@ -1,45 +1,46 @@
 'use client'
 
-import { Testimonial } from '@/lib/types'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import SectionHeading from '../SectionHeading/SectionHeading'
 import TestimonialCard from './TestimonialCard'
+import { testimonialData } from '@/appData/testimonialData'
 
-interface TestimonialSectionProps {
-  testimonials: Testimonial[]
-}
+const TestimonialSection = () => {
+  const [index, setIndex] = useState(0)
+  const visibleCount = 3
+  const total = testimonialData.length
 
-const TestimonialSection: React.FC<TestimonialSectionProps> = ({ testimonials }) => {
-  const [activeCard, setActiveCard] = useState(0)
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIndex((prev) => (prev + 1) % total)
+    }, 3000) // change every 3 seconds
+    return () => clearInterval(interval)
+  }, [total])
+
+  // Get testimonials to display
+  const visibleTestimonials = Array.from({ length: visibleCount }, (_, i) => {
+    return testimonialData[(index + i) % total]
+  })
 
   return (
-    <section id="testimonials">
+    <section id="testimonials" className="my-14">
       <SectionHeading
-        className="text-center mx-auto"
-        title="Voices From People I’ve Helped"
-        subtitle="Real feedback from people who experienced my work and results."
+        title="Feedback That Reflects Results"
+        subtitle= "I focus on clear outcomes and reliable solutions. Here’s what people say about the impact, growth, and progress from my work."
+        className="text-center mx-auto mb-12"
       />
 
-
-      <div className="hide-scrollbar my-8 flex gap-8 overflow-x-auto">
-        {testimonials.map((testimonial, idx) => (
-          <TestimonialCard
-            key={idx}
-            testimonial={testimonial}
-            handleActiveCard={() => {
-              setActiveCard(idx)
-            }}
-          />
-        ))}
-      </div>
-
-      <div className="flex items-center justify-center gap-1 sm:hidden">
-        {testimonials.map((_, idx) => (
-          <div
-            key={idx}
-            className={`${idx === activeCard ? 'bg-accent size-[12px]' : 'size-[10px] bg-white/50'} rounded-full`}
-          />
-        ))}
+      <div className="overflow-hidden">
+        <div
+          className="flex gap-6 transition-transform duration-700 ease-in-out"
+          style={{ transform: `translateX(-${index * (100 / visibleCount)}%)` }}
+        >
+          {testimonialData.map((item, idx) => (
+            <div key={idx} className="min-w-[33.33%]">
+              <TestimonialCard {...item} />
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   )

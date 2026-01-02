@@ -1,51 +1,45 @@
-import { Testimonial } from '@/lib/types'
-import { isInViewport } from '@/utils'
-import { StarIcon } from '@/utils/icons'
-import Image from 'next/image'
-import { FC, useEffect, useRef } from 'react'
+import Image, { StaticImageData } from 'next/image'
 
 interface TestimonialCardProps {
-  testimonial: Testimonial
-  handleActiveCard: () => void
+  name: string
+  title?: string
+  feedback: string
+  image: string | StaticImageData
+  stars: number
 }
 
-const TestimonialCard: FC<TestimonialCardProps> = ({
-  testimonial: { name, title, feedback, image, stars },
-  handleActiveCard,
+const TestimonialCard: React.FC<TestimonialCardProps> = ({
+  name,
+  title,
+  feedback,
+  image,
+  stars,
 }) => {
-  const cardRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    let observer: IntersectionObserver
-
-    if (cardRef.current) {
-      observer = isInViewport(cardRef.current, handleActiveCard)
-    }
-
-    return () => {
-      observer?.disconnect()
-    }
-  }, [cardRef.current])
-
   return (
-    <div
-      ref={cardRef}
-      className="bg-secondary border-border flex max-w-full shrink-0 flex-col items-center justify-between gap-4 rounded-2xl border p-4 text-center sm:max-w-[425px]">
-      <p className="text-neutral text-center leading-8 before:content-['“'] after:content-['”']">
-        {feedback}
-      </p>
-      <div>
-        <div className="mb-4 flex items-center gap-1.5">
-          {Array.from({ length: 5 }, (_, idx) => (
-            <StarIcon key={idx} className={idx < stars ? 'text-tag' : 'text-transparent'} />
-          ))}
-        </div>
-        <div>
-          <Image src={image} alt={name} width={50} height={50} className="mx-auto rounded-full" />
-          <p className="text-neutral text-lg font-semibold">{name}</p>
-          <p className="text-neutral/60 text-sm">{title}</p>
-        </div>
+    <div className="bg-secondary border-border p-5 rounded-2xl border flex flex-col items-center text-center hover:shadow-lg transition-shadow duration-300 min-w-[280px]">
+      <Image
+        src={image}
+        alt={name}
+        width={80}
+        height={80}
+        className="rounded-full mb-4 object-cover border-2 border-accent"
+      />
+      <p className="text-primary-content mb-3">{feedback}</p>
+      <div className="flex gap-1 mb-2">
+        {Array.from({ length: stars }).map((_, idx) => (
+          <svg
+            key={idx}
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            className="w-5 h-5 text-yellow-400"
+          >
+            <path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.782 1.4 8.168L12 18.896l-7.334 3.864 1.4-8.168L.132 9.21l8.2-1.192z" />
+          </svg>
+        ))}
       </div>
+      <h5 className="text-accent font-semibold">{name}</h5>
+      {title && <span className="text-sm text-neutral">{title}</span>}
     </div>
   )
 }

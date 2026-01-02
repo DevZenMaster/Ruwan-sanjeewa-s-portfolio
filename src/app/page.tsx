@@ -5,10 +5,8 @@ import ProjectSection from '@/components/Projects/ProjectSection'
 import ServiceSection from '@/components/Services/ServiceSection'
 import Skills from '@/components/Skills/Skills'
 import TestimonialSection from '@/components/Testimonials/TestimonialSection'
-import {  getAllTestimonials } from '@/services'
 
 export default async function Home() {
-  const testimonials = await getAllTestimonials()
 
   return (
     <main>
@@ -17,7 +15,7 @@ export default async function Home() {
       <div className="mx-auto my-8 max-w-[1200px] px-4 md:my-[3.75rem]">
         <ProjectSection/>
         <ServiceSection />
-        <TestimonialSection testimonials={testimonials} />
+        <TestimonialSection/>
         <ContactSection />
       </div>
     </main>
