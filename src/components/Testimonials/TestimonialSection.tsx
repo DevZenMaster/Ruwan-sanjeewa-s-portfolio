@@ -15,9 +15,11 @@ const TestimonialSection: React.FC<TestimonialSectionProps> = ({ testimonials })
   return (
     <section id="testimonials">
       <SectionHeading
-        title="// Testimonials"
-        subtitle="Don't just take our word for it - see what actual users of our service have to say about their experience."
+        className="text-center mx-auto"
+        title="Voices From People I’ve Helped"
+        subtitle="Real feedback from people who experienced my work and results."
       />
+
 
       <div className="hide-scrollbar my-8 flex gap-8 overflow-x-auto">
         {testimonials.map((testimonial, idx) => (
