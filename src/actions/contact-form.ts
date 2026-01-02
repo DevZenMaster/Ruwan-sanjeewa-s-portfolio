@@ -2,7 +2,7 @@
 
 const action = async (_: { success: boolean; message: string } | null, formData: FormData) => {
   try {
-    // Validate form fields
+    // Validate required fields
     const name = formData.get('name')
     if (!name)
       return { success: false, message: 'Please provide your name.' }
@@ -19,15 +19,23 @@ const action = async (_: { success: boolean; message: string } | null, formData:
     if (!message)
       return { success: false, message: 'Please provide a message.' }
 
-    // ✅ Safe fallback for environment variable
+    // Safe fallback for Formspree URL
     const actionUrl =
-      process.env.CONTACT_FORM_ACTION_URL ||
-      'https://formspree.io/f/xrebkkwl'
+      process.env.CONTACT_FORM_ACTION_URL || 'https://formspree.io/f/xrebkkwl'
+
+    // Only send the fields you want
+    const payload = {
+      name,
+      email,
+      subject,
+      message,
+    }
 
     const res = await fetch(actionUrl, {
       method: process.env.CONTACT_FORM_METHOD || 'POST',
-      body: formData,
+      body: JSON.stringify(payload),
       headers: {
+        'Content-Type': 'application/json',
         Accept: 'application/json',
       },
     })
