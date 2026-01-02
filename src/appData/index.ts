@@ -6,48 +6,62 @@ import {
   NextjsIcon,
   NodejsIcon,
   ReactIcon,
-  SocketIcon,
   TailwindCSS,
   TypescriptIcon,
+  FlutterIcon,
+  WordpressIcon,
+  AwsIcon,
+  SecurityIcon,
+  FigmaIcon,
 } from '../utils/icons'
 
 
-// Service Data
+
 export const serviceData = [
   {
-    icon: JavaScriptIcon,
-    title: 'JavaScript Development',
-    shortDescription: 'Creating dynamic and interactive web applications using JavaScript.',
-  },
-  {
     icon: ReactIcon,
-    title: 'React.js Development',
-    shortDescription: 'Building modern and responsive user interfaces with React.js.',
+    title: 'Web Development & Full-Stack',
+    shortDescription:
+      'Build responsive frontends with React and full-stack apps using MERN, including backend APIs, website maintenance, and performance optimization.',
   },
   {
-    icon: NodejsIcon,
-    title: 'Node.js Backend',
-    shortDescription: 'Developing scalable server-side applications using Node.js.',
+    icon: FlutterIcon,
+    title: 'Mobile & Cross-Platform Apps',
+    shortDescription:
+      'Create Flutter apps for web, mobile, and desktop with API integration, offline support, and UI/UX implementation from Figma designs.',
   },
   {
-    icon: NextjsIcon,
-    title: 'Next.js Development',
-    shortDescription: 'Creating server-rendered React applications with Next.js.',
+    icon: WordpressIcon,
+    title: 'E-commerce & LMS Platforms',
+    shortDescription:
+      'Develop online stores and learning platforms with WooCommerce, Shopify, or LMS solutions, including payments, dashboards, and subscriptions.',
   },
   {
-    icon: TypescriptIcon,
-    title: 'TypeScript Development',
-    shortDescription: 'Ensuring robust and maintainable code with TypeScript.',
+    icon: AwsIcon,
+    title: 'Cloud & DevOps Services',
+    shortDescription:
+      'Deploy and manage applications on AWS or Google Cloud, set up CI/CD pipelines, server monitoring, and containerized environments.',
   },
   {
-    icon: TailwindCSS,
-    title: 'Tailwind CSS Styling',
-    shortDescription: 'Designing beautiful and responsive interfaces with Tailwind CSS.',
+    icon: SecurityIcon,
+    title: 'Cybersecurity & System Protection',
+    shortDescription:
+      'Perform vulnerability scanning, penetration testing, website/server hardening, and security audits for applications and small businesses.',
+  },
+  {
+    icon: FigmaIcon,
+    title: 'UI/UX & Design Services',
+    shortDescription:
+      'Design responsive interfaces and prototypes using Figma, Sketch, or Adobe XD with branding, mockups, and modern UI styling.',
   },
 ]
-
 // Skill List
 export const skillList = [
+
+  {
+    name: 'AWS',
+    icon: AwsIcon,
+  },
   {
     name: 'JavaScript',
     icon: JavaScriptIcon,
@@ -73,13 +87,21 @@ export const skillList = [
     icon: ExpressjsIcon,
   },
   {
-    name: 'Nest.js',
-    icon: NestjsIcon,
+    name: 'Tailwind CSS',
+    icon: TailwindCSS,
   },
   {
-    name: 'Socket.io',
-    icon: SocketIcon,
+    name: 'Flutter',
+    icon: FlutterIcon,
+  },  
+  {
+    name: 'WordPress',
+    icon: WordpressIcon,
   },
+   {
+    name: 'Nest.js',
+    icon: NestjsIcon,
+  }
 ]
 
 export const footerLinks = [

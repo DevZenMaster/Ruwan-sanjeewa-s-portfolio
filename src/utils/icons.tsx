@@ -14,6 +14,11 @@ import TailwindCSS from '../assets/icons/tailwind-css.svg'
 import Timer from '../assets/icons/timer.svg'
 import TypescriptIcon from '../assets/icons/typescript.svg'
 import FlutterIcon from '../assets/icons/flutter.svg'
+import WordpressIcon from '../assets/icons/wordpress-icon.svg'
+import AwsIcon from '../assets/icons/aws-icon.svg'
+import SecurityIcon from '../assets/icons/cybersecurity-icon.svg'
+import FigmaIcon from '../assets/icons/figma-icon.svg'
+
 
 const PreviewIcon: FC<SVGProps<SVGSVGElement>> = (props) => {
   return (
@@ -338,4 +343,8 @@ export {
   TypescriptIcon,
   X,
   FlutterIcon,
+  WordpressIcon,
+  AwsIcon,
+  SecurityIcon,
+  FigmaIcon,
 }

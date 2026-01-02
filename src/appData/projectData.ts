@@ -45,4 +45,12 @@ export const projectData = [
     stack: ['WordPress', 'WooCommerce'],
     cover: Eminent100Img,
   },
+    {
+    title: 'Eminent200',
+    shortDescription:
+      'An e-commerce platform for custom clothing and print-on-demand products.',
+    link: 'https://www.eminent200.com/',
+    stack: ['WordPress', 'WooCommerce'],
+    cover: PlantexImg,
+  },
 ]

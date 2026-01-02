@@ -24,15 +24,15 @@ const ProjectSection = () => {
         ))}
       </div>
 
-      {/* See More Projects Button */}
-      <div className="mt-10 text-center">
+      {/* See More Projects Text Link */}
+      <div className="mt-8 text-center">
         <a
           href="https://github.com/DevZenMaster"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-block bg-blue-600 text-white font-medium text-base px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors duration-300"
+          className="text-blue-600 font-medium hover:underline text-base"
         >
-          See More Projects
+          See more projects on GitHub
         </a>
       </div>
     </section>
