@@ -80,7 +80,7 @@ const Hero = () => {
               aria-label="Download CV"
               className="flex items-center justify-center gap-2 border border-accent min-w-32 cursor-pointer rounded-full px-5 py-2 text-sm font-medium text-accent bg-transparent hover:bg-accent hover:text-[#00071E] transition-colors duration-200"
             >
-              Download CVs
+              Download CV
               {/* Inline SVG icon */}
               <svg
                 xmlns="http://www.w3.org/2000/svg"

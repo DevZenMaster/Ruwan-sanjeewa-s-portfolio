@@ -22,7 +22,7 @@ const action = async (_: { success: boolean; message: string } | null, formData:
     // ✅ Safe fallback for environment variable
     const actionUrl =
       process.env.CONTACT_FORM_ACTION_URL ||
-      'https://formspree.io/f/mbdldqzg'
+      'https://formspree.io/f/xrebkkwl'
 
     const res = await fetch(actionUrl, {
       method: process.env.CONTACT_FORM_METHOD || 'POST',
