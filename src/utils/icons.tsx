@@ -312,6 +312,25 @@ const PhoneIcon: FC<SVGProps<SVGSVGElement>> = (props) => {
   )
 }
 
+
+const YouTube: FC<SVGProps<SVGSVGElement>> = (props) => {
+  return (
+    <svg
+      role="img"
+      width={24}
+      height={24}
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}>
+      <title>YouTube</title>
+      <path
+        fill="currentColor"
+        d="M23.498 6.186a2.998 2.998 0 0 0-2.11-2.12C19.788 3.5 12 3.5 12 3.5s-7.788 0-9.388.566a2.998 2.998 0 0 0-2.11 2.12A31.14 31.14 0 0 0 0 12a31.14 31.14 0 0 0 .502 5.814 2.998 2.998 0 0 0 2.11 2.12C4.212 20.5 12 20.5 12 20.5s7.788 0 9.388-.566a2.998 2.998 0 0 0 2.11-2.12A31.14 31.14 0 0 0 24 12a31.14 31.14 0 0 0-.502-5.814ZM9.545 15.568V8.432L15.818 12l-6.273 3.568Z"
+      />
+    </svg>
+  )
+}
+
 export {
   ArrowLeftIcon,
   ArrowRightIcon,
@@ -344,6 +363,7 @@ export {
   X,
   FlutterIcon,
   WordpressIcon,
+  YouTube,
   AwsIcon,
   SecurityIcon,
   FigmaIcon,

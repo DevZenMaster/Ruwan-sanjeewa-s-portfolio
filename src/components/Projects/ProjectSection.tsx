@@ -7,7 +7,7 @@ const ProjectSection = () => {
     <section id="projects" className="my-14">
       <SectionHeading
         className="text-center mx-auto mb-12"
-        title="My Projects"
+        title="Recent Works"
         subtitle="These are some of my recent works, showcasing skills, results, and reliable solutions."
       />
 

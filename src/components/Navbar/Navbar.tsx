@@ -9,7 +9,7 @@ import Logo from './Logo'
 const navItems = [
   { label: 'Home', href: '/' },
   { label: 'Projects', href: '/#projects' },
-  { label: 'Services', href: '/#services' },
+  { label: 'What I Do', href: '/#services' },
   { label: 'Blog', href: 'https://devzenmaster.medium.com/', external: true },
   { label: 'Contact', href: '/#contact', isButton: true },
 ]
