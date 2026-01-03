@@ -6,7 +6,6 @@ import Image from 'next/image'
 import { HeroImage } from '../../utils/images'
 import Ellipse from './Ellipse'
 import { socials } from '@/appData/personal'
-import DownloadIcon from"../../assets/icons/downloads.svg"
 
 const typingTexts = ['Hi, I am Ruwan Sanjeewa', 'Hi, I am DevZenMaster']
 const roles = ['FULLSTACK DEVELOPER', 'DevSecOps Trainee', 'SLTC Undergraduate Student']

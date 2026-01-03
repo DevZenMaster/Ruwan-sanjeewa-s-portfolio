@@ -29,28 +29,4 @@ export const projectData = [
     stack: ['WordPress', 'WooCommerce'],
     cover: LuminousImg,
   },
-  {
-    title: 'DevZenMaster Academy',
-    shortDescription:
-      'An online academy platform for selling technical courses. Supports structured lessons, dashboards, and paid enrollments.',
-    link: 'https://www.devzenmasteracademy.online/',
-    stack: ['WordPress', 'Tutor LMS', 'WordPress Plugins'],
-    cover: DevZenMasterImg,
-  },
-  {
-    title: 'Eminent100',
-    shortDescription:
-      'An e-commerce platform for custom clothing and print-on-demand products.',
-    link: 'https://www.eminent100.com/',
-    stack: ['WordPress', 'WooCommerce'],
-    cover: Eminent100Img,
-  },
-    {
-    title: 'Eminent200',
-    shortDescription:
-      'An e-commerce platform for custom clothing and print-on-demand products.',
-    link: 'https://www.eminent200.com/',
-    stack: ['WordPress', 'WooCommerce'],
-    cover: PlantexImg,
-  },
 ]
