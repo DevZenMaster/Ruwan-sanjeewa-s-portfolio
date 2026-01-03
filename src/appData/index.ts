@@ -22,13 +22,13 @@ export const serviceData = [
     icon: ReactIcon,
     title: 'Web Development & Full-Stack',
     shortDescription:
-      'Build responsive frontends with React and full-stack apps using MERN, including backend APIs, website maintenance, and performance optimization.',
+      'Build responsive frontends with React and full-stack systems using MERN. Develop backend APIs, improve performance, and maintain secure websites.',
   },
   {
     icon: FlutterIcon,
     title: 'Mobile & Cross-Platform Apps',
     shortDescription:
-      'Create Flutter apps for web, mobile, and desktop with API integration, offline support, and UI/UX implementation from Figma designs.',
+      'Develop Flutter apps for mobile, web, and desktop. Integrate APIs, support offline use, and deliver consistent UI from Figma designs.',
   },
   {
     icon: WordpressIcon,
