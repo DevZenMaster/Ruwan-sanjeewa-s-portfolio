@@ -25,7 +25,7 @@ export const projectData = [
     title: 'Luminous Unisex Salon',
     shortDescription:
       'A business website with product sales and an appointment system. Supports online booking, product management, and customer engagement.',
-    link: 'https://www.luminousunisexsalon.com/',
+    link: 'https://luminous-unisex-salon.vercel.app/',
     stack: ['WordPress', 'WooCommerce'],
     cover: LuminousImg,
   },
