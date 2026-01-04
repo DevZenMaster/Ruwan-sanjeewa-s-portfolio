@@ -3,7 +3,7 @@ import { ImageResponse } from 'next/og'
 export const runtime = 'edge'
 
 // Image metadata
-export const alt = 'DevZenMaster Portfolio'
+export const alt = 'Ruwan Sanjeewa | Full-Stack & Mobile Developer | Cybersecurity Enthusiast'
 
 export const size = {
   width: 1200,
@@ -24,16 +24,52 @@ export default async function Image() {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          padding: '2rem',
+          padding: '4%',
+          boxSizing: 'border-box',
+          textAlign: 'center',
         }}
       >
-        <h1 style={{ fontSize: 36, color: '#5565e8', margin: 0, textAlign: 'center' }}>
-          Ruwan Sanjeewa | Full-Stack & Mobile Developer
+        <h1
+          style={{
+            fontSize: 48,
+            color: '#5565e8',
+            margin: 0,
+            lineHeight: 1.2,
+            wordBreak: 'break-word',
+          }}
+        >
+          Ruwan Sanjeewa
         </h1>
-        <h2 style={{ fontSize: 28, color: '#ffffff', marginTop: 20, textAlign: 'center' }}>
-          Cybersecurity Enthusiast | DevSecOps Aspirant
+        <h2
+          style={{
+            fontSize: 32,
+            color: '#ffffff',
+            marginTop: 16,
+            lineHeight: 1.2,
+          }}
+        >
+          Full-Stack & Mobile Developer
         </h2>
-        <p style={{ fontSize: 22, color: '#18f2e5', marginTop: 20, textAlign: 'center', maxWidth: 900 }}>
+        <h3
+          style={{
+            fontSize: 28,
+            color: '#18f2e5',
+            marginTop: 12,
+            lineHeight: 1.3,
+            maxWidth: 1000,
+          }}
+        >
+          Cybersecurity Enthusiast | DevSecOps Aspirant
+        </h3>
+        <p
+          style={{
+            fontSize: 20,
+            color: '#ffffff',
+            marginTop: 20,
+            maxWidth: 1000,
+            lineHeight: 1.4,
+          }}
+        >
           Crafting innovative web & mobile solutions while building secure, scalable applications.
         </p>
       </div>
