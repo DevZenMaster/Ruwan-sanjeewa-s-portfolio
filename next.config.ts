@@ -1,9 +1,9 @@
 import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
+  poweredByHeader: false,
   pageExtensions: ['js', 'jsx', 'ts', 'tsx'],
 
-  // 1. Image Optimization & Remote Patterns
   images: {
     remotePatterns: [
       { protocol: 'https', hostname: 'images.unsplash.com' },
@@ -14,7 +14,6 @@ const nextConfig: NextConfig = {
     ],
   },
 
-  // 2. Security Headers (DevSecOps Layer)
   async headers() {
     return [
       {
@@ -22,15 +21,30 @@ const nextConfig: NextConfig = {
         headers: [
           {
             key: 'Content-Security-Policy',
-            value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' va.vercel-scripts.com; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data: https:; font-src 'self' data:; connect-src 'self' https:; object-src 'none'; frame-ancestors 'none';",
+            value: [
+              "default-src 'self'",
+              "script-src 'self' https://va.vercel-scripts.com",
+              "style-src 'self'",
+              "img-src 'self' data: https:",
+              "font-src 'self' data:",
+              "connect-src 'self' https:",
+              "object-src 'none'",
+              "base-uri 'self'",
+              "frame-ancestors 'none'",
+              "form-action 'self'",
+              "upgrade-insecure-requests",
+            ].join('; '),
           },
-          { key: 'X-Frame-Options', value: 'DENY' }, // Prevents clickjacking
-          { key: 'X-Content-Type-Options', value: 'nosniff' }, // Prevents MIME-sniffing
+          { key: 'X-Frame-Options', value: 'DENY' },
+          { key: 'X-Content-Type-Options', value: 'nosniff' },
           { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
-          { key: 'Strict-Transport-Security', value: 'max-age=31536000; includeSubDomains; preload' }, // Forces HTTPS
-          { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=(), gyroscope=(), magnetometer=(), payment=()' },
+          { key: 'Strict-Transport-Security', value: 'max-age=31536000; includeSubDomains; preload' },
+          { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=(), payment=()' },
           { key: 'Cross-Origin-Opener-Policy', value: 'same-origin' },
           { key: 'Cross-Origin-Embedder-Policy', value: 'require-corp' },
+          { key: 'Cross-Origin-Resource-Policy', value: 'same-origin' },
+          { key: 'X-DNS-Prefetch-Control', value: 'off' },
+          { key: 'X-Permitted-Cross-Domain-Policies', value: 'none' },
         ],
       },
     ]
