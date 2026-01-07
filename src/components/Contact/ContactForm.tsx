@@ -15,7 +15,7 @@ const ContactForm = () => {
       <motion.div 
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
-        className="flex flex-col items-center justify-center min-h-[350px] space-y-6"
+        className="flex flex-col items-center justify-center min-h-87.5 space-y-6" // Fixed CSS
       >
         <div className="size-20 border-2 border-accent text-accent rounded-full flex items-center justify-center text-4xl shadow-[0_0_20px_rgba(24,242,229,0.4)]">
           ✓
@@ -30,7 +30,7 @@ const ContactForm = () => {
 
   return (
     <form action={formAction} className="space-y-6">
-      {/* 🛡️ DEFENSE-IN-DEPTH: Honeypot */}
+      {/* Honeypot */}
       <div className="absolute opacity-0 -z-50 size-0 overflow-hidden" aria-hidden="true">
         <label htmlFor="bot_trap_node_88">Do not fill this field</label>
         <input id="bot_trap_node_88" name="bot_trap_node_88" type="text" tabIndex={-1} autoComplete="off" />
@@ -42,7 +42,6 @@ const ContactForm = () => {
       </div>
 
       <Input label="ENCRYPTION_SUBJECT" name="subject" id="subject" placeholder="Project Inquiry" required />
-
       <Textarea name="message" id="message" label="INTEL_MESSAGE" rows={3} placeholder="Provide tactical details..." required />
 
       {status?.message && !status.success && (

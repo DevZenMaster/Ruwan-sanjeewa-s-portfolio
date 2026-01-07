@@ -63,26 +63,20 @@ const Hero = () => {
     return () => clearInterval(roleInterval)
   }, [mounted])
 
-  // Hydration Guard Placeholder (Syncs Server & Client initial render)
-  if (!mounted) return <section className="bg-primary min-h-screen pt-28" />
-
   return (
-    <section className="relative flex min-h-screen items-center overflow-hidden bg-primary bg-small-glow bg-small-glow-position bg-no-repeat md:bg-large-glow-position lg:bg-large-glow">
-      {/* Responsiveness: 
-          - pt-28 on mobile ensures content starts below a fixed Navbar. 
-          - grid-cols-1 stacks on mobile, md:grid-cols-2 for side-by-side desktop.
-      */}
-      <div className="mx-auto grid max-w-[1200px] grid-cols-1 items-center gap-10 px-6 pt-28 pb-12 md:grid-cols-2 md:gap-6 md:pt-20 lg:px-4">
+    <section 
+      className={`relative flex min-h-screen items-center overflow-hidden bg-primary bg-small-glow bg-small-glow-position bg-no-repeat md:bg-large-glow-position lg:bg-large-glow transition-opacity duration-500 ${!mounted ? 'opacity-0' : 'opacity-100'}`}
+    >
+      <div className="mx-auto grid max-w-300 grid-cols-1 items-center gap-10 px-6 pt-28 pb-12 md:grid-cols-2 md:gap-6 md:pt-20 lg:px-4">
         
-        {/* Right Side (Image): Appears FIRST on mobile (order-1) */}
+        {/* Right Side (Image) */}
         <motion.div 
           initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
+          animate={mounted ? { opacity: 1, scale: 1 } : {}}
           transition={{ duration: 1 }}
           className="relative flex items-center justify-center order-1 md:order-2"
         >
-          <div className="relative size-60 sm:size-72 md:size-[20rem] lg:size-[25.75rem]">
-            {/* Glow effect */}
+          <div className="relative size-60 sm:size-72 md:size-80 lg:size-103">
             <div className="absolute inset-0 rounded-full bg-accent/10 blur-[50px] md:blur-[60px]" />
             
             <Image 
@@ -100,17 +94,17 @@ const Hero = () => {
           </div>
         </motion.div>
 
-        {/* Left Side: Content (Appears BELOW image on mobile) */}
+        {/* Left Side: Content */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          animate={mounted ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
           className="z-10 flex flex-col justify-center order-2 md:order-1 items-center md:items-start text-center md:text-left"
         >
           {/* Availability Badge */}
           <motion.div 
             initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
+            animate={mounted ? { opacity: 1, scale: 1 } : {}}
             transition={{ delay: 0.5 }}
             className="mb-6 flex items-center gap-2 w-fit px-3 py-1 rounded-full bg-accent/10 border border-accent/20 backdrop-blur-md"
           >
@@ -124,7 +118,7 @@ const Hero = () => {
           </motion.div>
 
           <header>
-            <h1 className="min-h-[80px] md:min-h-[100px]">
+            <h1 className="min-h-20 md:min-h-25">
               <span className="mb-1 block text-2xl font-bold text-neutral sm:text-3xl md:text-4xl">
                 {displayText}<span className="animate-blink ml-1">|</span>
               </span>
@@ -144,7 +138,7 @@ const Hero = () => {
             </h1>
           </header>
 
-          <h2 className="mt-6 max-w-[32rem] text-sm leading-relaxed text-neutral opacity-90 sm:text-base md:text-lg">
+          <h2 className="mt-6 max-w-lg text-sm leading-relaxed text-neutral opacity-90 sm:text-base md:text-lg">
             I focus on building and securing web systems while growing my skills in 
             <span className="font-medium text-accent"> Cybersecurity</span>, 
             <span className="font-medium text-accent"> Ethical Hacking</span>, and 
@@ -154,7 +148,6 @@ const Hero = () => {
           </h2>
 
           <div className="mt-8 flex flex-wrap justify-center md:justify-start items-center gap-4 sm:gap-6">
-            {/* Native Download Link */}
             <motion.a
               href="/Ruwan_Sanjeewa_CV.pdf"
               download="Ruwan_Sanjeewa_CV.pdf"

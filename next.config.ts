@@ -1,7 +1,6 @@
 import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
-  poweredByHeader: false,
   pageExtensions: ['js', 'jsx', 'ts', 'tsx'],
 
   images: {
@@ -52,3 +51,6 @@ const nextConfig: NextConfig = {
 }
 
 export default nextConfig
+
+
+
