@@ -80,6 +80,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           name="facebook-domain-verification"
           content="5z2fewkuonzhsuc2zeuqzr9y0jav0q"
         />
+
+        {/* Facebook App ID */}
+        <meta
+          property="fb:app_id"
+          content="869824715932434" 
+        />
       </head>
       <body 
         // suppressHydrationWarning on <body> fixes the browser extension attribute error
