@@ -50,7 +50,6 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        // WhatsApp Fix: Using full absolute URL to ensure crawler finds it
         url: `${siteUrl}/og-image.png`, 
         width: 1200,
         height: 630,
@@ -75,6 +74,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     // suppressHydrationWarning is added to <html> to handle data-theme changes
     <html lang="en" data-theme="dark" suppressHydrationWarning>
+      <head>
+        {/* Facebook Domain Verification */}
+        <meta
+          name="facebook-domain-verification"
+          content="5z2fewkuonzhsuc2zeuqzr9y0jav0q"
+        />
+      </head>
       <body 
         // suppressHydrationWarning on <body> fixes the browser extension attribute error
         className={`${firaCode.className} antialiased selection:bg-accent/30 selection:text-accent`}
@@ -97,4 +103,4 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </body>
     </html>
   )
-}    
+}
