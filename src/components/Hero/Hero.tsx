@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import useRotatingAnimation from '@/hooks/useRotatingAnimation'
 import Image from 'next/image'
 import { HeroImage } from '../../utils/images'
@@ -12,35 +13,37 @@ const roles = ['FULLSTACK DEVELOPER', 'DevSecOps Trainee', 'SLTC Undergraduate S
 
 const Hero = () => {
   const ellipseRef = useRotatingAnimation()
+  const [mounted, setMounted] = useState(false)
 
+  // Typing logic states
   const [displayText, setDisplayText] = useState('')
   const [textIndex, setTextIndex] = useState(0)
   const [charIndex, setCharIndex] = useState(0)
   const [deleting, setDeleting] = useState(false)
 
   useEffect(() => {
-    const typingSpeed = 100
-    const pauseTime = 1000
+    setMounted(true)
+  }, [])
+
+  useEffect(() => {
+    if (!mounted) return
+    const typingSpeed = deleting ? 50 : 100
+    const pauseTime = 1500
 
     const handleTyping = () => {
       const currentText = typingTexts[textIndex]
-
       if (!deleting) {
-        // Typing characters
         if (charIndex < currentText.length) {
           setDisplayText(currentText.slice(0, charIndex + 1))
           setCharIndex(charIndex + 1)
         } else {
-          // Pause before deleting
           setTimeout(() => setDeleting(true), pauseTime)
         }
       } else {
-        // Deleting characters
         if (charIndex > 0) {
           setDisplayText(currentText.slice(0, charIndex - 1))
           setCharIndex(charIndex - 1)
         } else {
-          // Move to next text
           setDeleting(false)
           setTextIndex((textIndex + 1) % typingTexts.length)
         }
@@ -49,89 +52,152 @@ const Hero = () => {
 
     const interval = setTimeout(handleTyping, typingSpeed)
     return () => clearTimeout(interval)
-  }, [charIndex, deleting, textIndex])
+  }, [charIndex, deleting, textIndex, mounted])
 
-  // Secondary role rotation
   const [roleIndex, setRoleIndex] = useState(0)
   useEffect(() => {
+    if (!mounted) return
     const roleInterval = setInterval(() => {
       setRoleIndex((prev) => (prev + 1) % roles.length)
-    }, 2500)
+    }, 3000)
     return () => clearInterval(roleInterval)
-  }, [])
+  }, [mounted])
+
+  // Hydration Guard Placeholder (Syncs Server & Client initial render)
+  if (!mounted) return <section className="bg-primary min-h-screen pt-28" />
 
   return (
-    <section className="bg-primary bg-small-glow bg-small-glow-position md:bg-large-glow-position lg:bg-large-glow min-h-[calc(dvh-4rem)] bg-no-repeat">
-      <div className="mx-auto grid max-w-[1200px] grid-cols-1 items-center gap-4 px-4 pt-12 pb-10 md:grid-cols-2 lg:p-4">
-        <div className="flex min-h-48 flex-col justify-between lg:min-h-56 lg:max-w-[33.75rem]">
-          <h1>
-            <span className="text-neutral mb-2 block text-3xl font-bold">{displayText}<span className="animate-blink">|</span></span>
-            <span className="text-accent block text-[1.75rem] font-bold">{roles[roleIndex]}</span>
-          </h1>
+    <section className="relative flex min-h-screen items-center overflow-hidden bg-primary bg-small-glow bg-small-glow-position bg-no-repeat md:bg-large-glow-position lg:bg-large-glow">
+      {/* Responsiveness: 
+          - pt-28 on mobile ensures content starts below a fixed Navbar. 
+          - grid-cols-1 stacks on mobile, md:grid-cols-2 for side-by-side desktop.
+      */}
+      <div className="mx-auto grid max-w-[1200px] grid-cols-1 items-center gap-10 px-6 pt-28 pb-12 md:grid-cols-2 md:gap-6 md:pt-20 lg:px-4">
+        
+        {/* Right Side (Image): Appears FIRST on mobile (order-1) */}
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1 }}
+          className="relative flex items-center justify-center order-1 md:order-2"
+        >
+          <div className="relative size-60 sm:size-72 md:size-[20rem] lg:size-[25.75rem]">
+            {/* Glow effect */}
+            <div className="absolute inset-0 rounded-full bg-accent/10 blur-[50px] md:blur-[60px]" />
+            
+            <Image 
+              src={HeroImage} 
+              fill 
+              priority 
+              sizes="(max-width: 768px) 15rem, 25rem" 
+              alt="Ruwan Sanjeewa" 
+              className="z-10 object-contain p-4 md:p-6 drop-shadow-2xl" 
+            />
+            <Ellipse 
+              ref={ellipseRef} 
+              className="absolute top-0 left-0 size-full text-accent transition-transform duration-500 ease-out opacity-60" 
+            />
+          </div>
+        </motion.div>
 
-          <h2 className="text-neutral mt-3">
-            I build secure web and mobile systems using MERN stack, Flutter, and modern tools. I focus on clean code, practical security, and scalable applications, while working toward cloud and DevSecOps expertise.
+        {/* Left Side: Content (Appears BELOW image on mobile) */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="z-10 flex flex-col justify-center order-2 md:order-1 items-center md:items-start text-center md:text-left"
+        >
+          {/* Availability Badge */}
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.5 }}
+            className="mb-6 flex items-center gap-2 w-fit px-3 py-1 rounded-full bg-accent/10 border border-accent/20 backdrop-blur-md"
+          >
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-accent"></span>
+            </span>
+            <span className="text-[10px] md:text-xs font-bold tracking-wider text-accent uppercase">
+              Available for new opportunities
+            </span>
+          </motion.div>
+
+          <header>
+            <h1 className="min-h-[80px] md:min-h-[100px]">
+              <span className="mb-1 block text-2xl font-bold text-neutral sm:text-3xl md:text-4xl">
+                {displayText}<span className="animate-blink ml-1">|</span>
+              </span>
+              <div className="h-10 md:h-12">
+                <AnimatePresence mode="wait">
+                  <motion.span
+                    key={roles[roleIndex]}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    className="block text-xl font-bold text-accent tracking-tight sm:text-2xl md:text-[1.75rem]"
+                  >
+                    {roles[roleIndex]}
+                  </motion.span>
+                </AnimatePresence>
+              </div>
+            </h1>
+          </header>
+
+          <h2 className="mt-6 max-w-[32rem] text-sm leading-relaxed text-neutral opacity-90 sm:text-base md:text-lg">
+            I focus on building and securing web systems while growing my skills in 
+            <span className="font-medium text-accent"> Cybersecurity</span>, 
+            <span className="font-medium text-accent"> Ethical Hacking</span>, and 
+            <span className="font-medium text-accent"> Full Stack Development</span>. 
+            My goal is to improve my skills in 
+            <span className="font-semibold text-neutral underline decoration-accent/30"> DevSecOps</span> step by step.
           </h2>
 
-          <div className="mt-6 flex flex-wrap gap-6">
-
-            <button
-              aria-label="Download CV"
-              className="flex items-center justify-center gap-2 border border-accent min-w-32 cursor-pointer rounded-full px-5 py-2 text-sm font-medium text-accent bg-transparent hover:bg-accent hover:text-[#00071E] transition-colors duration-200"
+          <div className="mt-8 flex flex-wrap justify-center md:justify-start items-center gap-4 sm:gap-6">
+            {/* Native Download Link */}
+            <motion.a
+              href="/Ruwan_Sanjeewa_CV.pdf"
+              download="Ruwan_Sanjeewa_CV.pdf"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="group flex items-center justify-center gap-2 rounded-full border border-accent bg-transparent px-6 py-2.5 text-xs md:text-sm font-bold text-accent transition-all duration-300 hover:bg-accent hover:text-primary"
             >
               Download CV
-              {/* Inline SVG icon */}
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                viewBox="0 0 1664 1536"
-                fill="currentColor"
-              >
-                <path d="M1280 1344q0-26-19-45t-45-19t-45 19t-19 45t19 45t45 19t45-19t19-45zm256 0q0-26-19-45t-45-19t-45 19t-19 45t19 45t45 19t45-19t19-45zm128-224v320q0 40-28 68t-68 28H96q-40 0-68-28t-28-68v-320q0-40 28-68t68-28h465l135 136q58 56 136 56t136-56l136-136h464q40 0 68 28t28 68zm-325-569q17 41-14 70l-448 448q-18 19-45 19t-45-19L339 621q-31-29-14-70q17-39 59-39h256V64q0-26 19-45t45-19h256q26 0 45 19t19 45v448h256q42 0 59 39z"/>
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 transition-transform group-hover:translate-y-0.5" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clipRule="evenodd" />
               </svg>
-            </button>
+            </motion.a>
 
-
-            {/* Social Icons */}
-            <div className="flex gap-3">
+            <div className="flex gap-3 md:gap-4">
               {socials.map((item, idx) => (
-                <a
+                <motion.a
                   key={idx}
                   href={item.href}
-                  className="flex h-10 w-10 items-center justify-center rounded-full bg-neutral/10 text-neutral hover:bg-neutral/20 transition-colors">
-                  {item.icon}
-                </a>
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ y: -4, backgroundColor: 'rgba(255,255,255,0.15)' }}
+                  className="flex h-10 w-10 md:h-11 md:w-11 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-neutral backdrop-blur-sm transition-all"
+                >
+                  <div className="scale-90 md:scale-110">{item.icon}</div>
+                </motion.a>
               ))}
             </div>
           </div>
-        </div>
-
-        <div className="flex min-h-[18.75rem] items-center justify-center lg:min-h-[35rem]">
-          <div className="text-accent relative size-56 sm:size-60 md:size-[20rem] lg:size-[25.75rem]">
-            <Image
-              src={HeroImage}
-              fill={true}
-              priority={true}
-              sizes="(min-width: 1024px) 25.75rem, (min-width: 768px) 20rem, (min-width: 640px) 15rem, 14rem"
-              alt="Ruwan Sanjeewa - Full Stack Developer"
-              className="object-contain p-7"
-            />
-            <Ellipse
-              ref={ellipseRef}
-              className="absolute top-0 left-0 size-56 transition-transform duration-500 ease-out sm:size-60 md:size-[20rem] lg:size-[25.75rem]"
-            />
-          </div>
-        </div>
+        </motion.div>
       </div>
+
       <style jsx>{`
-        .animate-blink {
-          display: inline-block;
-          width: 1ch;
-          animation: blink 1s infinite;
+        .animate-blink { 
+          display: inline-block; 
+          width: 2px;
+          height: 1em;
+          background-color: currentColor;
+          animation: blink 1s step-end infinite;
+          vertical-align: middle;
         }
-        @keyframes blink {
-          0%, 50%, 100% { opacity: 1; }
-          25%, 75% { opacity: 0; }
+        @keyframes blink { 
+          0%, 100% { opacity: 1; } 
+          50% { opacity: 0; } 
         }
       `}</style>
     </section>

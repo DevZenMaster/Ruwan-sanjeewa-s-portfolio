@@ -1,12 +1,13 @@
 'use client'
 import { useState, useEffect } from 'react'
 
-const Logo = ({ className = '', size = 42 }: { className?: string; size?: number }) => {
+const Logo = ({ className = '', size = 56 }: { className?: string; size?: number }) => {
   const [hovered, setHovered] = useState(false)
   const [gradient, setGradient] = useState({ start: '#000', mid: '#333', end: '#555' })
 
-  const dur = hovered ? '2s' : '6s' // spin duration
-  
+  // INCREASED SPEEDS: 
+  // 0.8s for a high-energy hover spin, 3s for a smooth but faster idle spin
+  const dur = hovered ? '0.8s' : '3s' 
 
   useEffect(() => {
     const root = document.documentElement
@@ -17,8 +18,8 @@ const Logo = ({ className = '', size = 42 }: { className?: string; size?: number
         case 'light':
           setGradient(
             hovered
-              ? { start: '#5565e8', mid: '#18f2e5', end: '#000' } // hover gradient for light
-              : { start: '#000', mid: '#222', end: '#444' } // normal
+              ? { start: '#5565e8', mid: '#18f2e5', end: '#000' }
+              : { start: '#000', mid: '#222', end: '#444' }
           )
           break
         case 'dark':
@@ -62,13 +63,15 @@ const Logo = ({ className = '', size = 42 }: { className?: string; size?: number
     <svg
       width={size}
       height={size}
-      viewBox="0 0 64 64"
+      // viewBox expanded slightly to -4 -4 72 72 to prevent clipping during fast rotation
+      viewBox="-4 -4 72 72" 
       xmlns="http://www.w3.org/2000/svg"
       aria-label="DevZenMaster Logo"
       role="img"
       className={`cursor-pointer ${className}`}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
+      style={{ overflow: 'visible' }}
     >
       <defs>
         <linearGradient id="dzm-gradient" x1="0" y1="0" x2="1" y2="1">

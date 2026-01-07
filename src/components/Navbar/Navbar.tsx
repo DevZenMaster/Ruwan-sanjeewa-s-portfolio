@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { BurgerIcon, CloseIcon } from '../../utils/icons'
 import Logo from './Logo'
 
@@ -16,70 +16,44 @@ const navItems = [
 
 const Navbar = () => {
   const [isVisible, setIsVisible] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false)
   const pathname = usePathname()
 
-  const toggleMenu = () => setIsVisible(!isVisible)
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 20)
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   return (
-    <nav className="bg-primary h-16 overflow-hidden">
-      <div className="mx-auto flex h-full w-dvw max-w-[1200px] items-center justify-between px-4 py-1">
-        {/* Logo and Brand */}
-        <Link href="/">
-          <div className="animate-fade-up relative flex items-center gap-3 transition-all duration-300">
-            <Logo className="h-10 w-10 md:h-12 md:w-12" />
-            <span className="text-primary-content font-semibold text-lg md:text-xl">
-              DevZenMaster
-            </span>
-          </div>
+    <nav className={`fixed top-0 left-0 z-50 w-full transition-all duration-300 ${
+      isScrolled ? 'bg-primary/80 backdrop-blur-md shadow-lg h-16' : 'bg-primary h-20'
+    }`}>
+      <div className="mx-auto flex h-full max-w-[1200px] items-center justify-between px-6">
+        <Link href="/" className="group flex items-center gap-3 transition-transform hover:scale-105">
+          <Logo size={isScrolled ? 42 : 52} />
+          <span className="text-primary-content font-bold text-xl md:text-2xl">DevZenMaster</span>
         </Link>
 
-        {/* Mobile Menu Toggle */}
-        <div className="md:hidden">
-          <button onClick={toggleMenu} className="p-2">
-            {isVisible ? (
-              <CloseIcon className="text-primary-content" />
-            ) : (
-              <BurgerIcon className="text-primary-content" />
-            )}
-          </button>
-        </div>
+        <button onClick={() => setIsVisible(!isVisible)} className="md:hidden p-2 text-primary-content">
+          {isVisible ? <CloseIcon size={28} /> : <BurgerIcon size={28} />}
+        </button>
 
-        {/* Nav Items */}
-        <ul
-          className={`${
-            isVisible ? 'flex' : 'hidden'
-          } animate-fade-in absolute top-16 left-0 z-10 h-dvh w-dvw flex-col bg-primary md:static md:flex md:h-full md:w-[72%] md:flex-row lg:w-[70%] md:items-center md:justify-end`}
-        >
+        <ul className={`fixed top-0 left-0 z-[-1] flex h-screen w-full flex-col items-center justify-center bg-primary gap-8 transition-all duration-500 md:static md:z-auto md:h-full md:w-auto md:flex-row md:bg-transparent md:translate-y-0 md:opacity-100 ${
+          isVisible ? 'translate-y-0 opacity-100 flex' : '-translate-y-full opacity-0 hidden md:flex'
+        }`}>
           {navItems.map(({ label, href, isButton, external }) => (
-            <li
-              key={href}
-              onClick={() => setIsVisible(false)}
-              className="px-4 py-4 md:py-0 md:px-6 flex items-center md:ml-4"
-            >
+            <li key={href} onClick={() => setIsVisible(false)} className="relative group px-4 md:px-2">
               {isButton ? (
-                <Link
-                  href={href}
-                  className="rounded-full border border-accent px-5 py-2 text-sm font-medium text-accent bg-transparent hover:bg-accent hover:text-[#00071E] transition-colors duration-200"
-                >
+                <Link href={href} className="rounded-full border-2 border-accent px-6 py-2 text-sm font-bold text-accent hover:bg-accent hover:text-primary transition-all">
                   {label}
                 </Link>
-              ) : external ? (
-                <a
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-primary-content transition-all duration-150 hover:text-neutral"
-                >
-                  {label}
-                </a>
               ) : (
-                <Link
-                  href={href}
-                  className={`text-primary-content transition-all duration-150 hover:text-neutral ${
-                    pathname === href ? 'text-neutral cursor-text' : ''
-                  }`}
-                >
+                <Link href={href} target={external ? "_blank" : "_self"} className={`font-medium transition-colors hover:text-accent ${
+                  pathname === href ? 'text-accent' : 'text-primary-content/80'
+                }`}>
                   {label}
+                  <span className={`absolute -bottom-1 left-0 h-0.5 bg-accent transition-all ${pathname === href ? 'w-full' : 'w-0 group-hover:w-full'}`} />
                 </Link>
               )}
             </li>
