@@ -7,19 +7,35 @@ interface Breadcrumb {
 
 export default function Breadcrumbs({ breadcrumbs }: { breadcrumbs: Breadcrumb[] }) {
   return (
-    <nav aria-label="Breadcrumb" className="my-4 inline-block">
-      <ol className={'text-primary-content flex flex-wrap'}>
-        {breadcrumbs.map(({ label, href }, idx) => (
-          <li key={href}>
-            <Link
-              href={href}
-              className={`${idx === breadcrumbs.length - 1 ? 'text-secondary-content cursor-text' : 'hover:text-neutral'} transition-colors duration-300`}>
-              {label}
-            </Link>
-            {idx < breadcrumbs.length - 1 ? <span className="mx-3 inline-block">/</span> : null}
-          </li>
-        ))}
+    /* SPACE FIX: Changed my-4 to mt-2 mb-4 for a tighter fit. */
+    <nav aria-label="Breadcrumb" className="mt-2 mb-4 inline-block">
+      <ol className="flex items-center flex-wrap text-[10px] md:text-xs uppercase tracking-[0.15em] font-medium">
+        {breadcrumbs.map(({ label, href }, idx) => {
+          const isLast = idx === breadcrumbs.length - 1;
+          
+          return (
+            <li key={href} className="flex items-center">
+              <Link
+                href={href}
+                className={`transition-all duration-300 ${
+                  isLast 
+                    ? 'text-accent cursor-default font-bold' 
+                    : 'text-neutral/40 hover:text-white'
+                }`}
+              >
+                {label}
+              </Link>
+              
+              {!isLast && (
+                /* SPACE FIX: Reduced mx-3 to mx-2 and used a thinner divider */
+                <span className="mx-2 text-neutral/20 select-none">/</span>
+              )}
+            </li>
+          );
+        })}
       </ol>
     </nav>
   )
 }
+
+

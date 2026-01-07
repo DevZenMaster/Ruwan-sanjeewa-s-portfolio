@@ -1,17 +1,11 @@
 import { StaticImageData } from 'next/image'
-export interface Heading {
-  id: string
-  title: string
-  items: Heading[]
-}
-
-
 
 export interface Testimonial {
   name: string
-  title?: string
+  position?: string 
+  company?: string 
   feedback: string
-  image: string | StaticImageData  // <-- allow both string URLs and imported images
+  image: string | StaticImageData 
   stars: number
   createdAt: string
 }

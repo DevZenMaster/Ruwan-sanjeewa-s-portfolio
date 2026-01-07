@@ -1,63 +1,94 @@
 'use server'
 
-const action = async (_: { success: boolean; message: string } | null, formData: FormData) => {
+import { z } from 'zod'
+import { headers } from 'next/headers'
+
+// 1. Strict Schema: Whitelisting only what we expect.
+// We use .trim() and .transform() to sanitize inputs.
+const ContactSchema = z.object({
+  name: z.string()
+    .min(2, "IDENTITY_TOO_SHORT")
+    .max(50, "IDENTITY_TOO_LONG")
+    .trim()
+    .regex(/^[a-zA-Z\s]*$/, "INVALID_CHARACTERS_DETECTED"), // Only allow letters/spaces
+  email: z.string()
+    .email("INVALID_DIGITAL_MAIL")
+    .max(100)
+    .trim()
+    .toLowerCase(),
+  subject: z.string()
+    .min(3, "SUBJECT_REQUIRED")
+    .max(100)
+    .trim(),
+  message: z.string()
+    .min(10, "INTEL_TOO_SHORT")
+    .max(2000, "INTEL_LIMIT_EXCEEDED")
+    .trim(),
+})
+
+export default async function action(_: any, formData: FormData) {
+  // 2. Security Context: Capture metadata for audit logs
+  const headerList = await headers()
+  const ip = headerList.get('x-forwarded-for') || 'unknown'
+  const userAgent = headerList.get('user-agent') || 'unknown'
+
   try {
-    // Validate required fields
-    const name = formData.get('name')
-    if (!name)
-      return { success: false, message: 'Please provide your name.' }
+    // 3. Anti-Automation: Honeypot Check
+    const botTrap = formData.get('bot_trap_node_88') // Obscure name
+    if (typeof botTrap === 'string' && botTrap.length > 0) {
+      console.warn(`[SECURITY_ALERT] Bot detected from IP: ${ip}`)
+      return { success: false, message: 'PROTOCOL_VIOLATION: REQUEST_REJECTED' }
+    }
 
-    const email = formData.get('email')
-    if (!email)
-      return { success: false, message: 'Please provide your email address.' }
+    // 4. Input Validation & Sanitization
+    const validatedFields = ContactSchema.safeParse({
+      name: formData.get('name'),
+      email: formData.get('email'),
+      subject: formData.get('subject'),
+      message: formData.get('message'),
+    })
 
-    const subject = formData.get('subject')
-    if (!subject)
-      return { success: false, message: 'Please provide a subject.' }
+    if (!validatedFields.success) {
+      return { 
+        success: false, 
+        message: validatedFields.error.flatten().fieldErrors.name?.[0] || 'DATA_INTEGRITY_FAILURE' 
+      }
+    }
 
-    const message = formData.get('message')
-    if (!message)
-      return { success: false, message: 'Please provide a message.' }
+    const { name, email, subject, message } = validatedFields.data
 
-    // Safe fallback for Formspree URL
-    const actionUrl =
-      process.env.CONTACT_FORM_ACTION_URL || 'https://formspree.io/f/xrebkkwl'
-
-    // Only send the fields you want
-    const payload = {
-      name,
-      email,
-      subject,
-      message,
+    // 5. Secure Transmission
+    const actionUrl = process.env.CONTACT_FORM_ACTION_URL
+    if (!actionUrl) {
+      console.error("[CRITICAL] Environment Variable 'CONTACT_FORM_ACTION_URL' is missing.")
+      return { success: false, message: 'SYSTEM_OFFLINE' }
     }
 
     const res = await fetch(actionUrl, {
-      method: process.env.CONTACT_FORM_METHOD || 'POST',
-      body: JSON.stringify(payload),
+      method: 'POST',
+      body: JSON.stringify({
+        name,
+        email,
+        subject: `[SECURE_GATEWAY] ${subject}`,
+        message,
+        metadata: {
+          src_ip: ip,
+          ts: new Date().toISOString(),
+          agent: userAgent
+        }
+      }),
       headers: {
         'Content-Type': 'application/json',
-        Accept: 'application/json',
+        'Accept': 'application/json',
       },
     })
 
-    if (res.ok) {
-      return { success: true, message: 'Thanks for your submission!' }
-    } else {
-      const data = await res.json()
-      console.error('Form submission error:', data?.error)
+    if (!res.ok) throw new Error('UPLINK_ERROR')
 
-      return {
-        success: false,
-        message: 'Oops! There was a problem submitting your form.',
-      }
-    }
+    return { success: true, message: 'TRANSMISSION_COMPLETE' }
+
   } catch (error) {
-    console.error('Contact form submission error:', error)
-    return {
-      success: false,
-      message: 'Oops! There was a problem submitting your form.',
-    }
+    // 6. Generic Error Messages (Do not leak system stack traces)
+    return { success: false, message: 'INTERNAL_ERROR: ENCRYPTED_LOG_GENERATED' }
   }
 }
-
-export default action

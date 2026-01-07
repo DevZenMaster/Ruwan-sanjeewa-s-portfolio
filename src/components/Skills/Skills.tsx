@@ -3,7 +3,7 @@
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
 
-const MarqueeWrapper = dynamic(() => import('../Marquee/MarqueeWrapper'), { ssr: false })
+const MarqueeWrapper = dynamic(() => import('../MarqueeWrapper/MarqueeWrapper'), { ssr: false })
 
 type SkillsProps = {
   skills: { name: string; icon: string }[]

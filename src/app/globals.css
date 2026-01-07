@@ -184,3 +184,11 @@ section {
   }
   scrollbar-width: none;
 }
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(calc(-50% - 12px)); }
+}
+
+.animate-marquee {
+  animation: marquee linear infinite;
+}
