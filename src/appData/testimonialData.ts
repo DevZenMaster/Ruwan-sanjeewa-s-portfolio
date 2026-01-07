@@ -37,7 +37,7 @@ export const testimonialData: Testimonial[] = [
     createdAt: '2025-10-30',
   },
   {
-    name: 'Sithum Mirihana',
+    name: 'Sithum Mirihana ',
     position: 'Founder',
     company: 'Eminent 100',
     feedback:
