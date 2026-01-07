@@ -3,6 +3,7 @@ import MithunProfil from '@/assets/images/mithun.png'
 import PlantexTeam from '@/assets/images/plantex-team.png'
 import SithumProfil from '@/assets/images/sithum.png'
 import NuwanProfile from '@/assets/images/Nuwan.jpg'
+import SithumProfile2 from '@/assets/images/Eminent-sithum.png'
 
 export const testimonialData: Testimonial[] = [
   {
@@ -36,12 +37,12 @@ export const testimonialData: Testimonial[] = [
     createdAt: '2025-10-30',
   },
   {
-    name: 'Sithum Perera',
+    name: 'Sithum Mirihana',
     position: 'Founder',
     company: 'Eminent 100',
     feedback:
       'Ruwan built our e-commerce website with a clean design and smooth user experience. The system is fast, stable, and easy for us to manage products and orders. The overall quality exceeded our expectations.',
-    image: SithumProfil,
+    image: SithumProfile2,
     stars: 5,
     createdAt: '2025-11-20',
   },
