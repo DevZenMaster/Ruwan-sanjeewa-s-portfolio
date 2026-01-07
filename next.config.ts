@@ -14,7 +14,7 @@ const nextConfig: NextConfig = {
     ],
   },
 
-  // 2. Security Headers (The DevSecOps Layer)
+  // 2. Security Headers (DevSecOps Layer)
   async headers() {
     return [
       {
@@ -22,29 +22,15 @@ const nextConfig: NextConfig = {
         headers: [
           {
             key: 'Content-Security-Policy',
-            // Hardened CSP: Allows Vercel Analytics and trusted image domains
-            value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' va.vercel-scripts.com; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data: https:; font-src 'self' data:; connect-src 'self' https:;",
+            value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' va.vercel-scripts.com; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data: https:; font-src 'self' data:; connect-src 'self' https:; object-src 'none'; frame-ancestors 'none';",
           },
-          {
-            key: 'X-Frame-Options',
-            value: 'DENY', // Prevents Clickjacking
-          },
-          {
-            key: 'X-Content-Type-Options',
-            value: 'nosniff', // Prevents MIME-sniffing
-          },
-          {
-            key: 'Referrer-Policy',
-            value: 'strict-origin-when-cross-origin',
-          },
-          {
-            key: 'Strict-Transport-Security',
-            value: 'max-age=31536000; includeSubDomains; preload', // Forces HTTPS
-          },
-          {
-            key: 'Permissions-Policy',
-            value: 'camera=(), microphone=(), geolocation=()', // Blocks hardware access
-          }
+          { key: 'X-Frame-Options', value: 'DENY' }, // Prevents clickjacking
+          { key: 'X-Content-Type-Options', value: 'nosniff' }, // Prevents MIME-sniffing
+          { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
+          { key: 'Strict-Transport-Security', value: 'max-age=31536000; includeSubDomains; preload' }, // Forces HTTPS
+          { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=(), gyroscope=(), magnetometer=(), payment=()' },
+          { key: 'Cross-Origin-Opener-Policy', value: 'same-origin' },
+          { key: 'Cross-Origin-Embedder-Policy', value: 'require-corp' },
         ],
       },
     ]
