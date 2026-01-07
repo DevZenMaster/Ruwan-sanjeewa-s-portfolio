@@ -1,3 +1,4 @@
+import { withBotId } from 'botid/next/config'
 import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
@@ -22,11 +23,13 @@ const nextConfig: NextConfig = {
             key: 'Content-Security-Policy',
             value: [
               "default-src 'self'",
-              "script-src 'self' https://va.vercel-scripts.com",
-              "style-src 'self'",
-              "img-src 'self' data: https:",
+              // Required: Allow BotID scripts and unsafe-eval for challenges
+              "script-src 'self' 'unsafe-eval' https://va.vercel-scripts.com https://cdn.botid.io",
+              "style-src 'self' 'unsafe-inline'",
+              "img-src 'self' data: https: https://cdn.botid.io",
               "font-src 'self' data:",
-              "connect-src 'self' https:",
+              // Required: Allow BotID API for classification
+              "connect-src 'self' https: https://api.botid.io",
               "object-src 'none'",
               "base-uri 'self'",
               "frame-ancestors 'none'",
@@ -50,7 +53,4 @@ const nextConfig: NextConfig = {
   },
 }
 
-export default nextConfig
-
-
-
+export default withBotId(nextConfig)
